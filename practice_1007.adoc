@@ -1,0 +1,134 @@
+:lang: ja
+:doctype: book
+:toc: left
+:toclevels: 3
+:toc-title: 目次
+//toc: 目次を生成
+:sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:imagesdir: ./_images
+//画像イメージのディレクトリを指定 (NOTEやTIPのマーク)
+:icons: font
+:source-highlighter: coderay 
+//coderay: コード部分をハイライトさせる gem install coderay
+:example-caption: 例
+:table-caption: 表
+:figure-caption: 図
+:docname: = asciidoc-練習1
+:author: Nakayama
+:revnumber: 0.1
+:revdate: 2019/10/07
+
+= asciidoc-練習1
+
+== 基本の書き方/改行
+段落を記載するのに特別なマークアップは不要です。+ 改行は行末にプラスを追加します。
+[%hardbreaks]
+段落にhardbreaksを指定すると、それ以降はテキスト上の
+改行が
+そのまま
+反映される
+ようです
+
+=== Bold,イタリック,文字色の変更
+
+**Enterprise Earth** +
+_POLYPHIA_ +
+*_Two Door_* ^Cinema^ **_C_**lub +
+[blue]#Oceans Ate Alaska#
+
+=== リテラル
+    インデントを空けてリテラルを生成
+    テキストは固定幅のフォントで表示される
+    改行はそのまま反映。プラス不要
+空白なしの行
+
+1行以上空けてインデント無しで次の文を始めると地の文に戻る
+
+NOTE: 脚注段落
+
+TIP: ラベルの使い分けが可能
+
+== 使用頻度[高]
+'''
+↑シングルクォート3つで罫線を引く
+
+アスタリスクでリストを生成
+
+* level 1
+** level 2
+*** level 3
+**** level 4
+***** level 5
+
+* 入力情報
+** 入力パラメーター仕様
+*** 基本設定
+
+.Example Block
+====
+Exampleブロック
+改行はそのまま反映されないので +
+プラスが必要
+====
+
+.ハイパーリンク
+URLの直後にラベル https://www.google.com/?hl=ja[google]
+
+.コードブロック
+[source,json]
+----
+{
+    "name": "Sample.jpg",
+    "id": "yyy",
+    "parentId":"parent-id",
+    "isFolder": false,
+    "properties": {
+        "parent": {
+            "name": "parent-name",
+            "id": "parent-id"
+        }
+    }
+}
+----
+
+IMPORTANT: 「公式リファレンスの通りに書いてるのに反映されない…」
+⇒ "1行以上の空白行"や"記号の直後に半角スペース"を忘れているだけ、というケースが多かった。
+
+空白行無しでリストを生成しようとすると
+* うまく
+** いかない
+
+
+== まとめ
+'''
+* 基本的な記法 + 
+改行の +
+方法や
+
+ リテラルの生成
+
+* **太字**  ^上付き文字^ etc.
+** リストのレベルを使い分ける
+* ハイパーリンク https://www.google.com/?hl=ja[google]
+* コードブロック
+
+[source,json]
+----
+{
+    "name": "Sample.jpg",
+    "id": "yyy",
+    "parentId":"parent-id",
+    "isFolder": false,
+    "properties": {
+        "parent": {
+            "name": "parent-name",
+            "id": "parent-id"
+        }
+    }
+}
+----
+
+
+TIP: 10/08の目標　⇒ ①表・テーブルの生成を習得する ②頻繁に登場している枠線の正体を突き止める
