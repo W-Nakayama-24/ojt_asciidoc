@@ -1,0 +1,170 @@
+:lang: ja
+:doctype: book
+:toc: left
+:toclevels: 3
+:toc-title: 目次
+//toc: 目次を生成
+:sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:imagesdir: ./_images
+//画像イメージのディレクトリを指定 (NOTEやTIPのマーク)
+:icons: font
+:source-highlighter: coderay 
+//coderay: コード部分をハイライトさせる gem install coderay
+:example-caption: 例
+:table-caption: 表
+:figure-caption: 図
+:docname: = asciidoc-練習1
+:author: Nakayama
+:revnumber: 0.1
+:revdate: 2019/10/09
+
+= asciidoc-練習3
+
+====
+リファレンスの一部を再現することで、
+10/07～10/08に練習した内容を復習します
+====
+
+== コンポーネント
+'''
+WARNING: [red]#プロトタイプコンポーネントには互換性のない仕様変更が入る可能性があることをご了承ください。#
+
+[%hardbreaks]
+**オンプレミス連携フロー**用のコンポーネントです。
+FTPプロトコルを介してFTPサーバーへの操作を行う機能を提供します。
+
+* オペレーション一覧
+
+[cols="1,2a", options="header"]
+|===
+|**オペレーション名**
+|**説明**
+
+|<<_ファイルアップロード,ファイルアップロード>>
+|FTPサーバーの指定フォルダにファイルをアップロードします。
+
+|<<_ファイルダウンロード,ファイルダウンロード>>
+|FTPサーバーのフォルダから指定ファイルをダウンロードします。
+
+|===
+
+* 共通情報
+** 全オペレーション共通のパラメータ
++
+ありません
++
+** 全オペレーション共通のヘッダー
++
+ありません
++
+** 全オペレーション共通のエラーコード
+
+[cols="1,2,3"]
+|====
+|エラータイプ |エラーコード |説明
+
+.3+<.|InvalidInput
+|io-ftp.unauthorized |FTPサーバーの認証に失敗した
+|io-ftp.absent_auth_info |FTPサーバーの認証情報が取得できない
+|io-ftp.absent_auth_info |FTPサーバーの認証情報が不正
+|====
+
+=== ファイルアップロード
+'''
+* 入力情報
+** 入力パラメーター仕様
+*** 基本設定
+
+====
+**フォルダパス(String)**:: 
+アップロード先の相対パスを指定します。
+*** デフォルト値: ルートフォルダ
+
+**ファイル名(String)**::
+アップロード時のファイル名。
+*** 複数ファイルをアップロードする場合は、ファイル名の後ろにサフィックスを付けて別名でアップロードします。
++
+例: "filename": "test" +
+⇒test.jpg +
+⇒test(1).jpg +
+⇒test(2).jpg +
+====
+
+* 出力情報
+** 出力パラメーター仕様
+
+====
+**files (array[object])**::
+アップロードしたファイルの情報
+**name (String)**::
+ファイル名
+**path (String)**::
+ファイルパス
+**mimeType (String)**::
+ファイルのMIME type
+====
+
+** 処理結果例
+
+[source,json]
+----
+{
+  "files": [
+    {
+      "name": "sample.jpg",
+      "path": "test/sample.jpg",
+      "mimeType": "image/jpeg"
+    }
+  ]
+}
+----
+
+
+=== ファイルダウンロード
+'''
+* 入力情報
+** 入力パラメーター仕様
++
+====
+**ファイルパス(String)**[red]^**必須**^ ::
+ダウンロードするファイルの相対パスを指定します。
+====
++
+* 入力ファイル仕様
+** ファイルの扱い
+*** ファイルを扱いません。
+
+* 出力情報
+** 出力パラメータ仕様
++
+====
+**name (String)**::
+ファイル名
+**path (String)**::
+ファイルパス
+**mimeType (String)**::
+ファイルのMIME type
+====
++
+
+** 処理結果
++
+[source,json]
+----
+{
+  "name": "sample.jpg",
+  "path": "/mnt/hdd/pkgname/test/sample.jpg",
+  "mimeType": "image/jpeg"
+}
+----
+
+
+=== 振り返り
+'''
+作業の中で新たに必要だと気づいた文法があった。
+
+. セル結合　
+. コロン2つで字下げ
+. リテラルでない文を続ける(ブロックにも活用する)
